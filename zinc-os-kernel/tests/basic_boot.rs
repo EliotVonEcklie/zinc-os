@@ -1,10 +1,10 @@
 #![no_std]
 #![no_main]
 #![feature(custom_test_frameworks)]
-#![test_runner(zinc_os::test_runner)]
+#![test_runner(zinc_os_kernel::test_runner)]
 #![reexport_test_harness_main = "test_main"]
 
-use zinc_os::println;
+use zinc_os_kernel::println;
 use core::panic::PanicInfo;
 
 #[no_mangle]
@@ -16,7 +16,7 @@ pub extern "C" fn _start() -> ! {
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
-    zinc_os::test_panic_handler(info)
+    zinc_os_kernel::test_panic_handler(info)
 }
 
 #[test_case]

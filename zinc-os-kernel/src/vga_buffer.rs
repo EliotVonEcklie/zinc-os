@@ -26,8 +26,8 @@ pub enum Color {
     Red = 4,
     Magenta = 5,
     Brown = 6,
-    LightGray = 7,
-    DarkGray = 8,
+    LightGrey = 7,
+    DarkGrey = 8,
     LightBlue = 9,
     LightGreen = 10,
     LightCyan = 11,
@@ -58,9 +58,9 @@ struct ScreenChar {
 }
 
 /// The height of the text buffer (normally 25 lines).
-const BUFFER_HEIGHT: usize = 25;
+pub const BUFFER_HEIGHT: usize = 25;
 /// The width of the text buffer (normally 80 columns).
-const BUFFER_WIDTH: usize = 80;
+pub const BUFFER_WIDTH: usize = 80;
 
 /// A structure representing the VGA text buffer.
 #[repr(transparent)]
@@ -108,6 +108,26 @@ impl Writer {
         self.color_code = ColorCode::new(foreground, background);
     }
 
+    /// Clears a row by overwriting it with blank characters.
+    pub fn clear_row(&mut self, row: usize) {
+        let blank = ScreenChar {
+            ascii_character: b' ',
+            color_code: self.color_code,
+        };
+        for col in 0..BUFFER_WIDTH {
+            self.buffer.chars[row][col].write(blank);
+        }
+    }
+
+    /// Clears all rows on the screen overwriting them with blank characters.
+    pub fn clear_screen(&mut self) {
+        for row in 0..BUFFER_HEIGHT {
+            self.clear_row(row);
+        }
+
+        return
+    }
+
     /// Writes the given ASCII string to the buffer.
     ///
     /// Wraps lines at `BUFFER_WIDTH`. Supports the `\n` newline character. Does **not**
@@ -134,17 +154,6 @@ impl Writer {
         }
         self.clear_row(BUFFER_HEIGHT - 1);
         self.column_position = 0;
-    }
-
-    /// Clears a row by overwriting it with blank characters.
-    fn clear_row(&mut self, row: usize) {
-        let blank = ScreenChar {
-            ascii_character: b' ',
-            color_code: self.color_code,
-        };
-        for col in 0..BUFFER_WIDTH {
-            self.buffer.chars[row][col].write(blank);
-        }
     }
 }
 

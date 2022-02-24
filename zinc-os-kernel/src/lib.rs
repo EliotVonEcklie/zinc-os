@@ -57,7 +57,7 @@ pub fn exit_qemu(exit_code: QemuExitCode) {
     }
 }
 
-/// Entry point for `cargo xtest`
+/// Entry point for `cargo test`
 #[cfg(test)]
 #[no_mangle]
 pub extern "C" fn _start() -> ! {

@@ -19,7 +19,7 @@ extern "x86-interrupt" fn breakpoint_handler(
 {
     {
         use crate::vga_buffer::{ WRITER, Color };
-        WRITER.lock().change_color(Color::LightGray, Color::LightRed);
+        WRITER.lock().change_color(Color::LightGrey, Color::Red);
     }
     println!("EXCEPTION: BREAKPOINT\n{:#?}", stack_frame);
 }

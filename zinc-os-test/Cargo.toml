@@ -1,0 +1,11 @@
+[package]
+name = "zinc-os-test"
+version = "0.1.0"
+edition = "2021"
+authors = ["Joseph Hans Díaz González <eliotvonecklie@gmail.com>"]
+
+[dependencies]
+volatile = "0.2.6"
+lazy_static = { version = "1.0", features= ["spin_no_std"] }
+spin = "0.5.2"
+x86_64 = "^0.14"
